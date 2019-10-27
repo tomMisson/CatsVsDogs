@@ -3,7 +3,8 @@ const express = require('express')
 const app = express()
 const port = 3000;
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
-
+const VoiceResponse = require('twilio').twiml.VoiceResponse;
+const client = require('twilio')('ACed403cbafe770e7fec12c3da15d51500', 'c60366e6de2be684b9cc30b07a94de99');
 const bodyParser = require('body-parser');
 var path = require('path');
 
@@ -13,8 +14,30 @@ var catCount = 0;
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/contactall', function(req, res){
-    client.messages.list({to: '+447481337208'})
-               .then(messages => messages.forEach(m => console.log(m.from)));
+    const twiml = new VoiceResponse();
+    if(dogCount>catCount)
+    {
+        twiml.play('http://robmartino.com/sounds/Animal%20WAVs/Bark.aiff.mp3');
+        twiml.play('http://robmartino.com/sounds/Animal%20WAVs/Bark.aiff.mp3');
+        twiml.play('http://robmartino.com/sounds/Animal%20WAVs/Bark.aiff.mp3');
+        twiml.play('http://robmartino.com/sounds/Animal%20WAVs/Bark.aiff.mp3');
+        twiml.play('http://robmartino.com/sounds/Animal%20WAVs/Bark.aiff.mp3');
+    }
+    if(dogCount<catCount)
+    {
+        twiml.play('http://s1download-universal-soundbank.com/mp3/sounds/16426.mp3');
+        twiml.play('http://s1download-universal-soundbank.com/mp3/sounds/16426.mp3');
+        twiml.play('http://s1download-universal-soundbank.com/mp3/sounds/16426.mp3');
+        twiml.play('http://s1download-universal-soundbank.com/mp3/sounds/16426.mp3');
+        twiml.play('http://s1download-universal-soundbank.com/mp3/sounds/16426.mp3');
+    }
+    else{
+        twiml.say('Its a draw');
+    }
+
+    // Render the response as XML in reply to the webhook request
+    res.type('text/xml');
+    res.send(twiml.toString());     
 })
 
 app.post('/sms', (req, res) => {
