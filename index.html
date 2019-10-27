@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CatVsDog</title>
+
+    <style>
+
+    .flex-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+#dogImage{
+  margin-top: 100px;
+}
+
+h1{
+  text-align: center;
+}
+
+p{
+  font-size:5em;
+  display: flex;
+  justify-content: center;
+}
+  </style>
+
+    <script>
+       // run this function when the document is loaded
+       async function asyncCall()
+       {
+         console.log('calling');
+         const response = await fetch('/view');
+         const myJson = await response.json();
+         console.log(JSON.stringify(myJson));
+
+
+
+        document.getElementById("catC").innerHTML=myJson.catcount;
+        document.getElementById("dogC").innerHTML=myJson.dogcount;
+       }
+
+       asyncCall();
+
+
+    </script>
+
+  </head>
+  <body>
+      <h1>Cat Vs Dog</h1>
+      <div class="flex-container">
+      <div id="cat">
+        <img src ="https://pic.chinesefontdesign.com/uploads/2016/09/chinesefontdesign.com_2016-09-02_18-57-22.gif" width="250px" height="350px">
+        <p id="catC"></p>
+
+      </div>
+
+      <div id="dog">
+
+        <img id="dogImage" src="https://thumbs.gfycat.com/VagueHelpfulJenny-size_restricted.gif" width="250px" height="250px">
+        <p id="dogC"></p>
+
+      </div>
+    </div>
+  </body>
+</html>

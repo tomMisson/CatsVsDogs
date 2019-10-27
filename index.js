@@ -5,6 +5,7 @@ const port = 3000;
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 const bodyParser = require('body-parser');
+var path = require('path');
 
 var dogCount = 0;
 var catCount = 0;
@@ -30,7 +31,7 @@ app.post('/sms', (req, res) => {
         if(req.body.Body.toUpperCase()==("CAT")){
             catCount++;
         }
-        twiml.message('You voted for: ' + req.body.Body + "! Visit http://3d1ba908.ngrok.io/view to see how the scores are going! 🐱"+catCount+" vs "+dogCount+"🐶");
+        twiml.message('You voted for: ' + req.body.Body + "! Visit http://5fca4c10.ngrok.io to see how the scores are going! 🐱"+catCount+" vs "+dogCount+"🐶");
         res.writeHead(200, {'Content-Type': 'text/xml'});
         res.end(twiml.toString());
     }
@@ -49,7 +50,11 @@ app.get('/view', (req,res) => {
     }
 
     res.json(obj);
-})
+});
   
+app.get('/', (req, res) => {
+
+    res.sendFile(path.join(__dirname + '/index.html'));
+})
 
 app.listen(3000)
