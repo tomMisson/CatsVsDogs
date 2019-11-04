@@ -4,7 +4,7 @@ const app = express()
 const port = 3000;
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
-const client = require('twilio')('ACed403cbafe770e7fec12c3da15d51500', 'c60366e6de2be684b9cc30b07a94de99');
+
 const bodyParser = require('body-parser');
 var path = require('path');
 
